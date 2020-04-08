@@ -42,9 +42,9 @@
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.codeType = new System.Windows.Forms.GroupBox();
-            this.asciiRadioButton = new System.Windows.Forms.RadioButton();
-            this.utf8RadioButton = new System.Windows.Forms.RadioButton();
             this.unicodeRadioButton = new System.Windows.Forms.RadioButton();
+            this.utf8RadioButton = new System.Windows.Forms.RadioButton();
+            this.asciiRadioButton = new System.Windows.Forms.RadioButton();
             this.codeType.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,7 @@
             this.originalTextBox.Location = new System.Drawing.Point(12, 30);
             this.originalTextBox.Multiline = true;
             this.originalTextBox.Name = "originalTextBox";
+            this.originalTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.originalTextBox.Size = new System.Drawing.Size(350, 300);
             this.originalTextBox.TabIndex = 0;
             // 
@@ -69,6 +70,7 @@
             this.encryptedTextBox.Location = new System.Drawing.Point(822, 30);
             this.encryptedTextBox.Multiline = true;
             this.encryptedTextBox.Name = "encryptedTextBox";
+            this.encryptedTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.encryptedTextBox.Size = new System.Drawing.Size(350, 300);
             this.encryptedTextBox.TabIndex = 2;
             // 
@@ -163,17 +165,15 @@
             this.codeType.TabStop = false;
             this.codeType.Text = "Вид кодировки";
             // 
-            // asciiRadioButton
+            // unicodeRadioButton
             // 
-            this.asciiRadioButton.AutoSize = true;
-            this.asciiRadioButton.Checked = true;
-            this.asciiRadioButton.Location = new System.Drawing.Point(6, 23);
-            this.asciiRadioButton.Name = "asciiRadioButton";
-            this.asciiRadioButton.Size = new System.Drawing.Size(52, 17);
-            this.asciiRadioButton.TabIndex = 0;
-            this.asciiRadioButton.TabStop = true;
-            this.asciiRadioButton.Text = "ASCII";
-            this.asciiRadioButton.UseVisualStyleBackColor = true;
+            this.unicodeRadioButton.AutoSize = true;
+            this.unicodeRadioButton.Location = new System.Drawing.Point(270, 23);
+            this.unicodeRadioButton.Name = "unicodeRadioButton";
+            this.unicodeRadioButton.Size = new System.Drawing.Size(74, 17);
+            this.unicodeRadioButton.TabIndex = 2;
+            this.unicodeRadioButton.Text = "UNICODE";
+            this.unicodeRadioButton.UseVisualStyleBackColor = true;
             // 
             // utf8RadioButton
             // 
@@ -185,15 +185,17 @@
             this.utf8RadioButton.Text = "UTF8";
             this.utf8RadioButton.UseVisualStyleBackColor = true;
             // 
-            // unicodeRadioButton
+            // asciiRadioButton
             // 
-            this.unicodeRadioButton.AutoSize = true;
-            this.unicodeRadioButton.Location = new System.Drawing.Point(270, 23);
-            this.unicodeRadioButton.Name = "unicodeRadioButton";
-            this.unicodeRadioButton.Size = new System.Drawing.Size(74, 17);
-            this.unicodeRadioButton.TabIndex = 2;
-            this.unicodeRadioButton.Text = "UNICODE";
-            this.unicodeRadioButton.UseVisualStyleBackColor = true;
+            this.asciiRadioButton.AutoSize = true;
+            this.asciiRadioButton.Checked = true;
+            this.asciiRadioButton.Location = new System.Drawing.Point(6, 23);
+            this.asciiRadioButton.Name = "asciiRadioButton";
+            this.asciiRadioButton.Size = new System.Drawing.Size(52, 17);
+            this.asciiRadioButton.TabIndex = 0;
+            this.asciiRadioButton.TabStop = true;
+            this.asciiRadioButton.Text = "ASCII";
+            this.asciiRadioButton.UseVisualStyleBackColor = true;
             // 
             // DesForm
             // 

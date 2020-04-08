@@ -17,18 +17,18 @@ namespace DES
 
             InitializeComponent();
             openFileDialog.Filter = "All files(*.*)|*.*";
-            saveFileDialog.Filter = "All files(*.*)|*.*";
+            saveFileDialog.Filter = "Text files(*.txt)|*.txt";
 
         }
 
-        const int lengtKey = 8; //длина ключа 
+        const int lenghtKey = 8; //длина ключа 
         
 
         string keyMass = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"; // строка символов, из которой генерируем ключ
 
         void keyGenButton_Click(object sender, EventArgs e)
         {
-            var key = GenRandomStr(keyMass, lengtKey);
+            var key = GenRandomStr(keyMass, lenghtKey);
             keyTextBox.Text = key;
         }
 
