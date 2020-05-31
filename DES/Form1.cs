@@ -38,6 +38,8 @@ namespace DES
             21, 10,  3, 24 };
 
 
+
+
         static int[] H = new int[48] {
             31,  0,  1,  2,  3,  4,
             3,  4,  5,  6,  7,  8,
@@ -58,6 +60,17 @@ namespace DES
             45, 41, 49, 35, 28, 31
         };
         static int[] IP1 = new int[64] {
+            7,  39, 15, 47, 23, 55, 31, 63,
+            6,  38, 14, 46, 22, 54, 30, 62,
+            5,  37, 13, 45, 21, 53, 29, 61,
+            4,  36, 12, 44, 20, 52, 28, 60,
+            3,  35, 11, 43, 19, 51, 27, 59,
+            2,  34, 10, 42, 18, 50, 26, 58,
+            1,  33,  9, 41, 17, 49, 25, 57,
+            0,  32,  8, 40, 16, 48, 24, 56
+        };
+
+        static int[] TEST = new int[64] {
             7,  39, 15, 47, 23, 55, 31, 63,
             6,  38, 14, 46, 22, 54, 30, 62,
             5,  37, 13, 45, 21, 53, 29, 61,
@@ -226,14 +239,10 @@ namespace DES
                 {
                     encryptedTextBox.Text = "";
                     var splittedText = SplitIntoBlocks(filledText);
-                    //boolSplittedTex = new bool[splittedText.Length, 64];
-                    for (int i = 0; i < lenghtKey; i++)
+                    for (int i = 0; i < splittedText.Length; i++)
                     {
                         var temp= ConvertToBit(splittedText[i]);// /переводим текст в биты
-                        //for (int j = 0; j < 64; j++)
-                        //{
-                        //    boolSplittedTex[i, j] = temp[j];
-                        //}
+
                         encryptedTextBox.Text += CryptBlock(temp, key, true);
                     }
                 }
@@ -241,8 +250,8 @@ namespace DES
                 else if (decryptRadioButton.Checked)
                 { 
                     decryptedTextBox.Text = "";
-                    encryptedText = FillText(encryptedText);
-                    var splittedText = SplitIntoBlocks(encryptedText);
+                    //encryptedText = FillText(encryptedText);
+                    var splittedText = SplitIntoBlocks(filledText);
                     //boolSplittedTex = new bool[splittedText.Length, 64];
                     for (int i = 0; i < splittedText.Length; i++)
                     {
@@ -327,10 +336,10 @@ namespace DES
 
         }
 
-        string CryptBlock(bool[] inp_64, string key64, bool isCrypt)
+        string CryptBlock(bool[] inp, string key, bool isCrypt)
         {
-            bool[] outb = new bool[64];
-            Work(inp_64, outb, key64, isCrypt);
+            bool[] outb = new bool[inp.Length];
+            Work(inp, outb, key, isCrypt);
 
             bool[] boolBuffer = new bool[8];
 
@@ -370,24 +379,31 @@ namespace DES
             for (int i = 0; i < 16; i++)
                 ekey[i] = new bool[48];
             Permutation(inp, pin, ip, 64);//начальная перестановка
-            bool[] l = new bool[32]; 
+            bool[] l = new bool[32];
             bool[] r = new bool[32];// левый и правый блок (сети Фейстеля)
             SplitOnRL(pin, l, r);
             FillKey(key_64, ekey, is_crypt);//получаем 16-ключей(по 48 бит каждый)
 
             //  for (uint n=0; n<16;)
-            for (int n = 0; n < 16;)
+            for (int n = 0; n < 16; n++)
             {
                 if (n % 2 == 0)
                 {
-                    F(l, r, ekey[n++]);
+                    F(l, r, ekey[n]);
                 }
                 else
-                    F(r, l, ekey[n++]);
+                    F(r, l, ekey[n]);
             }
             bool[] pin_ = new bool[64];
             ConnectBlocks(l, r, pin_);
-            Permutation(pin, out_64, IP1, 64);
+            if (!is_crypt)
+                Permutation(pin_, out_64, IP1, 64);///////////////////////////////////////////
+            else
+                for (int i = 0; i < 64; i++)
+                {
+                    out_64[i] = pin_[i];
+                }
+                
         }
         private static void F(bool[] L_32, bool[] R_32, bool[] key_48)//функция для шифрования
         {
@@ -405,7 +421,6 @@ namespace DES
             for (y = 0; y < 8; y++)
             for (x = 0; x < 6; x++)
                 B[y, x] = R_48[y * 6 + x];//разбиваем на 8 блоков по 6 бит каждый
-
 
             for (y = 0; y < 8; y++)
             {
@@ -497,7 +512,7 @@ namespace DES
             var keyInBytes = encodingType.GetBytes(keyTextBox.Text);
 
             //var data = new string[text.Length / 8];
-            var data = new string[text.Length / keyInBytes.Length];
+            var data = new string[textInBytes.Length / keyInBytes.Length];
 
             // int lengthOfBlock = 8;
             int lengthOfBlock = keyInBytes.Length;
@@ -547,13 +562,6 @@ namespace DES
             //for (int i = 0; i < BIT.Length; i++)
             //    a[i] = Convert.ToBoolean(new_Bit[i]);
             return a;
-        }
-
-        private static void Сutblocks(bool[] Block, bool[] R, bool[] L, int size)
-        {
-            for (int i = 0; i < Block.Length / 2; i++) L[i] = Block[i];
-            for (int i = Block.Length / 2; i < Block.Length; i++) R[i - size] = Block[i];
-
         }
 
         private static void SplitOnRL(bool[] Block, bool[] R, bool[] L)
@@ -608,9 +616,20 @@ namespace DES
         private static bool[,] ByteToBool(byte[] a)// перевод из байтов в bool
         {
             bool[,] b = new bool[4, 8];
-            for (int i = 0; i < 4; i++)
-            for (int j = 0; j < 8; j++)
-                b[i, j] = Convert.ToBoolean(a[i]);
+            for (int i = 0; i < 8; i++)
+            {
+                BitArray bTemp = new BitArray(new int[] { a[i] });
+                int j = 0;
+                foreach (var bit in bTemp)
+                {
+                    b[j, i] = Convert.ToBoolean(bit);
+                    j++;
+                    if (j == 4)
+                        break;
+                }
+                    
+            }
+
             return b;
         }
 
