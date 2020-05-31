@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.originalTextBox = new System.Windows.Forms.TextBox();
-            this.decryptedTextBox = new System.Windows.Forms.TextBox();
             this.encryptedTextBox = new System.Windows.Forms.TextBox();
+            this.decryptedTextBox = new System.Windows.Forms.TextBox();
             this.keyTextBox = new System.Windows.Forms.TextBox();
             this.keyGenButton = new System.Windows.Forms.Button();
             this.loadFileButton = new System.Windows.Forms.Button();
             this.saveFileButton = new System.Windows.Forms.Button();
             this.runButton = new System.Windows.Forms.Button();
-            this.decryptRadioButton = new System.Windows.Forms.RadioButton();
             this.encryptRadioButton = new System.Windows.Forms.RadioButton();
+            this.decryptRadioButton = new System.Windows.Forms.RadioButton();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -45,7 +45,11 @@
             this.unicodeRadioButton = new System.Windows.Forms.RadioButton();
             this.utf8RadioButton = new System.Windows.Forms.RadioButton();
             this.asciiRadioButton = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.desRadioButton = new System.Windows.Forms.RadioButton();
+            this.xorRadioButton = new System.Windows.Forms.RadioButton();
             this.codeType.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // originalTextBox
@@ -57,22 +61,22 @@
             this.originalTextBox.Size = new System.Drawing.Size(350, 300);
             this.originalTextBox.TabIndex = 0;
             // 
-            // decryptedTextBox
-            // 
-            this.decryptedTextBox.Location = new System.Drawing.Point(417, 30);
-            this.decryptedTextBox.Multiline = true;
-            this.decryptedTextBox.Name = "decryptedTextBox";
-            this.decryptedTextBox.Size = new System.Drawing.Size(350, 300);
-            this.decryptedTextBox.TabIndex = 1;
-            // 
             // encryptedTextBox
             // 
-            this.encryptedTextBox.Location = new System.Drawing.Point(822, 30);
+            this.encryptedTextBox.Location = new System.Drawing.Point(417, 30);
             this.encryptedTextBox.Multiline = true;
             this.encryptedTextBox.Name = "encryptedTextBox";
-            this.encryptedTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.encryptedTextBox.Size = new System.Drawing.Size(350, 300);
-            this.encryptedTextBox.TabIndex = 2;
+            this.encryptedTextBox.TabIndex = 1;
+            // 
+            // decryptedTextBox
+            // 
+            this.decryptedTextBox.Location = new System.Drawing.Point(822, 30);
+            this.decryptedTextBox.Multiline = true;
+            this.decryptedTextBox.Name = "decryptedTextBox";
+            this.decryptedTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.decryptedTextBox.Size = new System.Drawing.Size(350, 300);
+            this.decryptedTextBox.TabIndex = 2;
             // 
             // keyTextBox
             // 
@@ -127,27 +131,27 @@
             this.runButton.UseVisualStyleBackColor = true;
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
-            // decryptRadioButton
-            // 
-            this.decryptRadioButton.Font = new System.Drawing.Font("PMingLiU-ExtB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.decryptRadioButton.Location = new System.Drawing.Point(828, 414);
-            this.decryptRadioButton.Name = "decryptRadioButton";
-            this.decryptRadioButton.Size = new System.Drawing.Size(110, 23);
-            this.decryptRadioButton.TabIndex = 8;
-            this.decryptRadioButton.TabStop = true;
-            this.decryptRadioButton.Text = "Зашифровать";
-            this.decryptRadioButton.UseVisualStyleBackColor = true;
-            // 
             // encryptRadioButton
             // 
             this.encryptRadioButton.Font = new System.Drawing.Font("PMingLiU-ExtB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.encryptRadioButton.Location = new System.Drawing.Point(1044, 414);
+            this.encryptRadioButton.Location = new System.Drawing.Point(828, 414);
             this.encryptRadioButton.Name = "encryptRadioButton";
-            this.encryptRadioButton.Size = new System.Drawing.Size(116, 23);
-            this.encryptRadioButton.TabIndex = 9;
+            this.encryptRadioButton.Size = new System.Drawing.Size(110, 23);
+            this.encryptRadioButton.TabIndex = 8;
             this.encryptRadioButton.TabStop = true;
-            this.encryptRadioButton.Text = "Расшифровать";
+            this.encryptRadioButton.Text = "Зашифровать";
             this.encryptRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // decryptRadioButton
+            // 
+            this.decryptRadioButton.Font = new System.Drawing.Font("PMingLiU-ExtB", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.decryptRadioButton.Location = new System.Drawing.Point(1044, 414);
+            this.decryptRadioButton.Name = "decryptRadioButton";
+            this.decryptRadioButton.Size = new System.Drawing.Size(116, 23);
+            this.decryptRadioButton.TabIndex = 9;
+            this.decryptRadioButton.TabStop = true;
+            this.decryptRadioButton.Text = "Расшифровать";
+            this.decryptRadioButton.UseVisualStyleBackColor = true;
             // 
             // openFileDialog
             // 
@@ -197,26 +201,62 @@
             this.asciiRadioButton.Text = "ASCII";
             this.asciiRadioButton.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.desRadioButton);
+            this.groupBox1.Controls.Add(this.xorRadioButton);
+            this.groupBox1.Location = new System.Drawing.Point(417, 346);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(350, 53);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Вид кодировки";
+            // 
+            // desRadioButton
+            // 
+            this.desRadioButton.AutoSize = true;
+            this.desRadioButton.Location = new System.Drawing.Point(297, 23);
+            this.desRadioButton.Name = "desRadioButton";
+            this.desRadioButton.Size = new System.Drawing.Size(47, 17);
+            this.desRadioButton.TabIndex = 1;
+            this.desRadioButton.Text = "DES";
+            this.desRadioButton.UseVisualStyleBackColor = true;
+            // 
+            // xorRadioButton
+            // 
+            this.xorRadioButton.AutoSize = true;
+            this.xorRadioButton.Checked = true;
+            this.xorRadioButton.Location = new System.Drawing.Point(6, 23);
+            this.xorRadioButton.Name = "xorRadioButton";
+            this.xorRadioButton.Size = new System.Drawing.Size(48, 17);
+            this.xorRadioButton.TabIndex = 0;
+            this.xorRadioButton.TabStop = true;
+            this.xorRadioButton.Text = "XOR";
+            this.xorRadioButton.UseVisualStyleBackColor = true;
+            // 
             // DesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 491);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.codeType);
-            this.Controls.Add(this.encryptRadioButton);
             this.Controls.Add(this.decryptRadioButton);
+            this.Controls.Add(this.encryptRadioButton);
             this.Controls.Add(this.runButton);
             this.Controls.Add(this.saveFileButton);
             this.Controls.Add(this.loadFileButton);
             this.Controls.Add(this.keyGenButton);
             this.Controls.Add(this.keyTextBox);
-            this.Controls.Add(this.encryptedTextBox);
             this.Controls.Add(this.decryptedTextBox);
+            this.Controls.Add(this.encryptedTextBox);
             this.Controls.Add(this.originalTextBox);
             this.Name = "DesForm";
             this.Text = "Алгоритм DES by smeshmike";
             this.codeType.ResumeLayout(false);
             this.codeType.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -225,15 +265,15 @@
         #endregion
 
         private System.Windows.Forms.TextBox originalTextBox;
-        private System.Windows.Forms.TextBox decryptedTextBox;
         private System.Windows.Forms.TextBox encryptedTextBox;
+        private System.Windows.Forms.TextBox decryptedTextBox;
         private System.Windows.Forms.TextBox keyTextBox;
         private System.Windows.Forms.Button keyGenButton;
         private System.Windows.Forms.Button loadFileButton;
         private System.Windows.Forms.Button saveFileButton;
         private System.Windows.Forms.Button runButton;
-        private System.Windows.Forms.RadioButton decryptRadioButton;
         private System.Windows.Forms.RadioButton encryptRadioButton;
+        private System.Windows.Forms.RadioButton decryptRadioButton;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
@@ -241,6 +281,9 @@
         private System.Windows.Forms.RadioButton unicodeRadioButton;
         private System.Windows.Forms.RadioButton utf8RadioButton;
         private System.Windows.Forms.RadioButton asciiRadioButton;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton desRadioButton;
+        private System.Windows.Forms.RadioButton xorRadioButton;
     }
 }
 
