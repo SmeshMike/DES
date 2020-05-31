@@ -193,10 +193,11 @@ namespace DES
         void runButton_Click(object sender, EventArgs e)
         {
             var key = keyTextBox.Text;
+            SetKeyLength();
             var filledText = FillText(originalTextBox.Text);
             var decryptedText = decryptedTextBox.Text;
             var encryptedText = encryptedTextBox.Text;
-            SetKeyLength();
+            
 
             if (xorRadioButton.Checked)
             {
@@ -226,7 +227,7 @@ namespace DES
                     encryptedTextBox.Text = "";
                     var splittedText = SplitIntoBlocks(filledText);
                     //boolSplittedTex = new bool[splittedText.Length, 64];
-                    for (int i = 0; i < splittedText.Length; i++)
+                    for (int i = 0; i < lenghtKey; i++)
                     {
                         var temp= ConvertToBit(splittedText[i]);// /переводим текст в биты
                         //for (int j = 0; j < 64; j++)
@@ -627,7 +628,7 @@ namespace DES
             }
             else
             {
-                encodingType = Encoding.Unicode;
+                encodingType = Encoding.UTF8;
             }
 
             lenghtKey = encodingType.GetBytes(keyTextBox.Text).Length;
